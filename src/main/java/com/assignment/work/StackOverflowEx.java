@@ -1,7 +1,8 @@
 package com.assignment.work;
 
 public class StackOverflowEx {
-	static int i = 0;
+static int i = 0;
+
 	/**
 	 * @param args
 	 */
@@ -10,7 +11,8 @@ public class StackOverflowEx {
 	}
 
 	private static void methodA() {
-		if(i++ > 100) throw new RuntimeException();
+		if (i++ > 100)
+			throw new RuntimeException();
 		methodB();
 	}
 

@@ -6,15 +6,7 @@ import static org.testng.Assert.*;
 
 public class TicTacToeTest {
 	
-	@Test
-	public void shouldInitializeBoard(){
-		final Integer rows = 10;
-		TicTacToeBoard board = new TicTacToeBoard(rows, 10);
-		
-		assertEquals(board.getRows(), rows);
-		
-	}
-	
+
 	@Test
 	public void shouldAllowPlacementOfTokensOnTheBoard(){
 		final Integer rows = 10;
@@ -32,6 +24,35 @@ public class TicTacToeTest {
 
 	@Test
 	public void shouldNotAllowPlacementInTheSamePosition(){
+		final Integer rows = 10;
+		TicTacToeBoard board = new TicTacToeBoard(rows, 10);
+		
+		Position position = new Position(3,3);
+		Token token = new Token("X");
+		board.place(token, position);
+		
+		Position alternatePosition = new Position(3,3);
+		
+		try{
+			board.place(token, alternatePosition);
+		} catch(TokenAlreadyPresentException placementException){
+			return;
+		}
+		fail("should throw BadPlacementException");
+	}
+	
+	@Test
+	public void shouldNotAllowPlacementBeyondTheBoundaries(){
+		
+	}
+	
+	@Test
+	public void shouldNotAllowAPlayerToPlayConsecutiveTurns() {
+		
+	}
+	
+	@Test
+	public void shouldDeclareWinnerWhenThreeConsecutiveHorizontalPositionsAreFilledBySamePlayer(){
 		
 	}
 }

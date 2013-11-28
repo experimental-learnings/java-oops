@@ -2,7 +2,7 @@ package com.assignment.work.paperboy;
 
 public class Client {
 	private Wallet wallet = new Wallet();
-	
+
 	private final String name;
 
 	public Client(String name) {
@@ -18,11 +18,11 @@ public class Client {
 	}
 
 	public float pay(float collectionMoney) {
-		if(wallet.hasSufficientFund(collectionMoney)){
+		if (wallet.hasSufficientFund(collectionMoney)) {
 			return wallet.dispenseCash(collectionMoney);
-		} 
+		}
 		return (float) 0.0;
-		
+
 	}
-	
+
 }

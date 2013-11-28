@@ -12,10 +12,10 @@ public class Wallet {
 	}
 
 	public float dispenseCash(float cash) {
-		if(hasSufficientFund(cash)){
+		if (hasSufficientFund(cash)) {
 			money -= cash;
 			return cash;
-		} else{
+		} else {
 			throw new InsufficientFundException();
 		}
 	}
@@ -23,5 +23,5 @@ public class Wallet {
 	public boolean hasSufficientFund(float cash) {
 		return money > cash;
 	}
-	
+
 }

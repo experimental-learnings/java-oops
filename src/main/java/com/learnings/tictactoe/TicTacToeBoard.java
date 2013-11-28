@@ -18,7 +18,10 @@ public class TicTacToeBoard {
 	}
 
 	public void place(final Token token, final Position position) {
-		tokenMap.put(position, token);		
+		if (tokenMap.containsKey(position)) {
+			throw new TokenAlreadyPresentException();
+		}
+		tokenMap.put(position, token);
 	}
 
 	public Token getToken(Position position) {
