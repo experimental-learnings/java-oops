@@ -2,8 +2,24 @@ package com.learnings.tictactoe;
 
 public class Position {
 
-	private final Integer row;
-	private final Integer column;
+	private Integer row;
+	public Integer getRow() {
+		return row;
+	}
+
+	public void setRow(Integer row) {
+		this.row = row;
+	}
+
+	public Integer getColumn() {
+		return column;
+	}
+
+	public void setColumn(Integer column) {
+		this.column = column;
+	}
+
+	private Integer column;
 
 	public Position(final Integer row, final Integer column) {
 		this.row = row;

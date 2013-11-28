@@ -13,52 +13,46 @@ public class GameOfLife {
 
 	public static String[] life(String[] dish) {
 		String[] newGen = new String[dish.length];
-		for (int row = 0; row < dish.length; row++) {// each row
+		for (int row = 0; row < dish.length; row++) {
 			newGen[row] = "";
-			for (int i = 0; i < dish[row].length(); i++) {// each char in the
-															// row
-				String above = "";// neighbors above
-				String same = "";// neighbors in the same row
-				String below = "";// neighbors below
-				if (i == 0) {// all the way on the left
-					// no one above if on the top row
-					// otherwise grab the neighbors from above
+			for (int i = 0; i < dish[row].length(); i++) {
+															
+				String above = "";
+				String same = "";
+				String below = "";
+				if (i == 0) {
+					
 					above = (row == 0) ? null : dish[row - 1].substring(i,
 							i + 2);
 					same = dish[row].substring(i + 1, i + 2);
-					// no one below if on the bottom row
-					// otherwise grab the neighbors from below
+					
 					below = (row == dish.length - 1) ? null : dish[row + 1]
 							.substring(i, i + 2);
-				} else if (i == dish[row].length() - 1) {// right
-					// no one above if on the top row
-					// otherwise grab the neighbors from above
+				} else if (i == dish[row].length() - 1) {
+					
 					above = (row == 0) ? null : dish[row - 1].substring(i - 1,
 							i + 1);
 					same = dish[row].substring(i - 1, i);
-					// no one below if on the bottom row
-					// otherwise grab the neighbors from below
+					
+					
 					below = (row == dish.length - 1) ? null : dish[row + 1]
 							.substring(i - 1, i + 1);
-				} else {// anywhere else
-						// no one above if on the top row
-						// otherwise grab the neighbors from above
+				} else {
 					above = (row == 0) ? null : dish[row - 1].substring(i - 1,
 							i + 2);
 					same = dish[row].substring(i - 1, i)
 							+ dish[row].substring(i + 1, i + 2);
-					// no one below if on the bottom row
-					// otherwise grab the neighbors from below
+					
 					below = (row == dish.length - 1) ? null : dish[row + 1]
 							.substring(i - 1, i + 2);
 				}
 				int neighbors = getNeighbors(above, same, below);
 				if (neighbors < 2 || neighbors > 3) {
-					newGen[row] += "_";// <2 or >3 neighbors -> die
+					newGen[row] += "_";
 				} else if (neighbors == 3) {
-					newGen[row] += "#";// 3 neighbors -> spawn/live
+					newGen[row] += "#";
 				} else {
-					newGen[row] += dish[row].charAt(i);// 2 neighbors -> stay
+					newGen[row] += dish[row].charAt(i);
 				}
 			}
 		}
@@ -67,20 +61,20 @@ public class GameOfLife {
 
 	public static int getNeighbors(String above, String same, String below) {
 		int ans = 0;
-		if (above != null) {// no one above
-			for (char x : above.toCharArray()) {// each neighbor from above
+		if (above != null) {
+			for (char x : above.toCharArray()) {
 				if (x == '#')
-					ans++;// count it if someone is here
+					ans++;
 			}
 		}
-		for (char x : same.toCharArray()) {// two on either side
+		for (char x : same.toCharArray()) {
 			if (x == '#')
-				ans++;// count it if someone is here
+				ans++;
 		}
-		if (below != null) {// no one below
-			for (char x : below.toCharArray()) {// each neighbor below
+		if (below != null) {
+			for (char x : below.toCharArray()) {
 				if (x == '#')
-					ans++;// count it if someone is here
+					ans++;
 			}
 		}
 		return ans;

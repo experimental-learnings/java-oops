@@ -97,7 +97,7 @@ public class Board {
 		}
 	}
 
-	public boolean moveValidate(int row, int col, Seed theSeed) {
+	public boolean move(int row, int col, Seed theSeed) {
 		if (row >= 0 && row < ROWS && col >= 0 && col < COLS
 				&& cells[row][col].content == Seed.EMPTY) {
 			cells[row][col].content = theSeed;

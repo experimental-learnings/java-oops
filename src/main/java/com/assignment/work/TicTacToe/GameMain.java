@@ -50,7 +50,7 @@ public class GameMain {
 			}
 			int row = in.nextInt();
 			int col = in.nextInt();
-			flag = board.moveValidate(row, col, theSeed);
+			flag = board.move(row, col, theSeed);
 		} while (!flag);
 
 	}
