@@ -1,7 +1,9 @@
 package com.learnings.tictactoe;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
+
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 
 public class TicTacToeTest {
@@ -14,10 +16,11 @@ public class TicTacToeTest {
 		
 		Position position = new Position(3,3);
 		Token token = new Token("X");
-		board.place(token, position);
+		Player player = new Player("player1");
+		board.place(token, position, "player1");
 		
 		Position alternatePosition = new Position(5,5);
-		board.place(token, alternatePosition);
+		board.place(token, alternatePosition, "player2");
 		
 		assertEquals(board.getToken(position), token);
 	}
@@ -29,12 +32,13 @@ public class TicTacToeTest {
 		
 		Position position = new Position(3,3);
 		Token token = new Token("X");
-		board.place(token, position);
+		Player player = new Player("player1");
+		board.place(token, position, "player1");
 		
 		Position alternatePosition = new Position(3,3);
 		
 		try{
-			board.place(token, alternatePosition);
+			board.place(token, alternatePosition, "player2");
 		} catch(TokenAlreadyPresentException placementException){
 			return;
 		}
@@ -47,12 +51,13 @@ public class TicTacToeTest {
 		TicTacToeBoard board = new TicTacToeBoard(rows, 10);
 		Position position = new Position(1,1);
 		Token token = new Token("X");
-		board.place(token, position);
+		Player player = new Player("player1");
+		board.place(token, position, "player1");
 		
 
 		Position alternatePosition = new Position(10,11);
 		try{
-			board.place(token, alternatePosition);
+			board.place(token, alternatePosition, "player2");
 		} catch(OutOfBoardSizeException boundaryException){
 			return;
 		}
@@ -60,25 +65,26 @@ public class TicTacToeTest {
 		
 	}
 	
+	
 	@Test
 	public void shouldNotAllowAPlayerToPlayConsecutiveTurns() {
 		final Integer rows = 10;
 		TicTacToeBoard board = new TicTacToeBoard(rows, 10);
 		Position position = new Position(1,1);
-		Position alternateposition = new Position(2,2);
+		Position alternatePosition = new Position(2,2);
 		Token token = new Token("X");
+		Player player = new Player("player1");
 		
-		board.place(token, position);
+		board.place(token, position, "player1");
 		
 		try{
-			board.place(token, position);
-		} catch (InvalidTurnException e){
+			board.place(token, position, "player1");
+		} catch (WrongPlayerException e){
 			
-		}
-		
-
+		}		
 		
 	}
+	
 	
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveHorizontalPositionsAreFilledBySamePlayer(){
