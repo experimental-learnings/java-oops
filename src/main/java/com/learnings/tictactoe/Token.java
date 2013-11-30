@@ -7,4 +7,8 @@ public class Token {
 		this.currentToken = token;
 	}
 
+	public String getCurrentToken(){
+		return  currentToken;
+	}
+	
 }
