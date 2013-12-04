@@ -16,7 +16,7 @@ public class GameOfLife {
 		for (int row = 0; row < dish.length; row++) {
 			newGen[row] = "";
 			for (int i = 0; i < dish[row].length(); i++) {
-															
+
 				String above = "";
 				String same = "";
 				String below = "";
