@@ -154,13 +154,48 @@ public class TicTacToePracticeTest {
 		ArgumentCaptor<GameStateChangeEvent> argument = ArgumentCaptor.forClass(GameStateChangeEvent.class);
 		verify(gameListener).onStateChange(argument.capture());
     	assertEquals(argument.getValue().getState(),GameState.PLAYER2);
-    	
-
 
 	}
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveRightDiagonalPositionsAreFilledBySamePlayer() {
+		final Integer rows = 3;
+		Board board = new Board(3);
+		Position zeroZero = new Position(0, 0);
+		Position zeroOne = new Position(0, 1);
+		Position oneOne = new Position(1, 1);
+		Position twoOne = new Position(2, 1);
+		Position twoTwo = new Position(2, 2);
+		Token firstToken = new Token("X");
+		Token secondToken = new Token("O");
+		
+		BoardStateChangeListener listener = mock(BoardStateChangeListener.class);
+		board.setBoardStateChangeListener(listener);
+
+		TicTacToeGame game = new TicTacToeGame(board);
+
+		board.place(zeroZero, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(zeroOne, secondToken);
+		game.getGameStatus(secondToken);
+		
+		board.place(oneOne, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(twoOne, secondToken);
+		game.getGameStatus(secondToken);
+		
+		GameStateChangeListener gameListener = mock(GameStateChangeListener.class);
+		game.setGameStateChangeListener(gameListener);
+		
+		board.place(twoTwo, firstToken);
+		game.getGameStatus(firstToken);
+		
+		ArgumentCaptor<GameStateChangeEvent> argument = ArgumentCaptor.forClass(GameStateChangeEvent.class);
+		verify(gameListener).onStateChange(argument.capture());
+    	assertEquals(argument.getValue().getState(),GameState.PLAYER1);
+
 	}
 
 	@Test
