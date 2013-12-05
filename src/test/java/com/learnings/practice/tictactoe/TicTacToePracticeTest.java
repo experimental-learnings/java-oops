@@ -19,6 +19,11 @@ public class TicTacToePracticeTest {
 
 	@Test
 	public void shouldNotAllowPlacementInTheSamePosition() {
+		final Integer size = 3;
+		Board board = new Board(size);
+		Token token = new Token("X");
+		Position position = new Position(0, 1);
+		board.place(position, token);
 
 	}
 
