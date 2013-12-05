@@ -12,9 +12,9 @@ public class TicTacToePracticeTest {
 		final Integer size = 3;
 		Board board = new Board(size);
 		Token token = new Token("X");
-		Position position = new Position(0, 1);
-		board.place(position, token);
-		assertEquals(board.hasTokenAt(position), true);
+		Position zeroOne = new Position(0, 1);
+		board.place(zeroOne, token);
+		assertEquals(board.hasTokenAt(zeroOne), true);
 	}
 
 	@Test
@@ -22,11 +22,11 @@ public class TicTacToePracticeTest {
 		final Integer size = 3;
 		Board board = new Board(size);
 		Token token = new Token("X");
-		Position position = new Position(0, 1);
-		board.place(position, token);
+		Position zeroOne = new Position(0, 1);
+		board.place(zeroOne, token);
 		
 		try{
-			board.place(position, token);
+			board.place(zeroOne, token);
 		}catch(TokenAlreadyPresentException e){
 			return;
 		}
@@ -39,9 +39,9 @@ public class TicTacToePracticeTest {
 		final Integer size = 3;
 		Board board = new Board(size);
 		Token token = new Token("X");
-		Position position = new Position(0, 4);
+		Position zeroFour = new Position(0, 4);
 		try{
-			board.place(position, token);
+			board.place(zeroFour, token);
 		}catch(OutOFBoundaryException e){
 			return;
 		}
@@ -50,6 +50,20 @@ public class TicTacToePracticeTest {
 
 	@Test
 	public void shouldNotAllowAPlayerToPlayConsecutiveTurns() {
+		final Integer size = 3;
+		Board board = new Board(size);
+		Token firstToken = new Token("X");
+		Position zeroOne = new Position(0, 1);
+		Position oneTwo = new Position(0, 2);
+		board.place(zeroOne, firstToken);
+		
+		try{
+			board.place(oneTwo, firstToken);
+		}catch(WrongPlayerTurnException e){
+			return;
+		}
+		fail("should throw WrongPlayerTurnException");
+		
 		
 	}
 
