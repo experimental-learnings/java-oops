@@ -83,6 +83,9 @@ public class TicTacToePracticeTest {
 		Token firstToken = new Token("X");
 		Token secondToken = new Token("O");
 
+		BoardStateChangeListener boardListener = mock(BoardStateChangeListener.class);
+		board.setBoardStateChangeListener(boardListener);
+		
 		TicTacToeGame game = new TicTacToeGame(board);
 		
 		board.place(zeroZero, firstToken);
@@ -111,8 +114,7 @@ public class TicTacToePracticeTest {
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveVerticalPositionsAreFilledBySamePlayer() {
-
-	}
+			}
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveRightDiagonalPositionsAreFilledBySamePlayer() {
