@@ -34,4 +34,8 @@ public class Token {
 		return true;
 	}
 
+	public String getCurrentToken() {
+		return currentToken;
+	}
+
 }

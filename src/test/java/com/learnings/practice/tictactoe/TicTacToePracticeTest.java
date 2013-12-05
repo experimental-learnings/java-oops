@@ -1,9 +1,16 @@
 package com.learnings.practice.tictactoe;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.testng.Assert.*;
+
+import com.learnings.practice.tictactoe.*;
+import com.learnings.practice.tictactoe.GameStateChangeListener.GameStateChangeEvent;
+import com.learnings.practice.tictactoe.TicTacToeGame.GameState;
+
+import org.mockito.ArgumentCaptor;
 import org.testng.annotations.Test;
-import com.learnings.tictactoe.Position;
-import com.learnings.tictactoe.Token;
+
 
 public class TicTacToePracticeTest {
 	
@@ -56,19 +63,49 @@ public class TicTacToePracticeTest {
 		Position zeroOne = new Position(0, 1);
 		Position oneTwo = new Position(0, 2);
 		board.place(zeroOne, firstToken);
-		
 		try{
 			board.place(oneTwo, firstToken);
 		}catch(WrongPlayerTurnException e){
 			return;
 		}
 		fail("should throw WrongPlayerTurnException");
-		
-		
 	}
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveHorizontalPositionsAreFilledBySamePlayer() {
+		final Integer size = 3;
+		Board board = new Board(3);
+		Position zeroZero = new Position(0, 0);
+		Position oneZero = new Position(1, 0);
+		Position zeroOne = new Position(0, 1);
+		Position oneTwo = new Position(1, 2);
+		Position zeroTwo = new Position(0, 2);
+		Token firstToken = new Token("X");
+		Token secondToken = new Token("O");
+
+		TicTacToeGame game = new TicTacToeGame(board);
+		
+		board.place(zeroZero, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(oneZero, secondToken);
+		game.getGameStatus(secondToken);
+		
+		board.place(zeroOne, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(oneTwo, secondToken);
+		game.getGameStatus(secondToken);
+		
+		GameStateChangeListener gameListener = mock(GameStateChangeListener.class);
+		game.setGameStateChangeListener(gameListener);
+		
+		board.place(zeroTwo, firstToken);
+		game.getGameStatus(firstToken);
+		
+		ArgumentCaptor<GameStateChangeEvent> argument = ArgumentCaptor.forClass(GameStateChangeEvent.class);
+		verify(gameListener).onStateChange(argument.capture());
+    	assertEquals(argument.getValue().getState(),GameState.PLAYER1);
     	
 	}
 

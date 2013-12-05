@@ -28,6 +28,22 @@ public class Position {
 		return true;
 	}
 
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
 	private int row;
 
 	public Position(int row, int column) {
