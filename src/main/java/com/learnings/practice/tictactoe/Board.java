@@ -20,7 +20,12 @@ public class Board {
 	}
 
 	private void isValidMove(Position position, Token token) {
-		if(isTokenAlreadyPlaced(position)) throw new TokenAlreadyException();
+		if(isTokenAlreadyPlaced(position)) throw new TokenAlreadyPresentException();
+		if(isPlacedOutOfBoundary(position)) throw new OutOFBoundaryException();
+	}
+
+	private boolean isPlacedOutOfBoundary(Position position) {
+		return ((position.getRow() > size) || (position.getColumn() > size));
 	}
 
 	private boolean isTokenAlreadyPlaced(Position position) {

@@ -27,20 +27,30 @@ public class TicTacToePracticeTest {
 		
 		try{
 			board.place(position, token);
-		}catch(TokenAlreadyException e){
+		}catch(TokenAlreadyPresentException e){
 			return;
 		}
-		fail("should throw TokenAlreadyException");
+		fail("should throw TokenAlreadyPresentException");
 
 	}
 
 	@Test
 	public void shouldNotAllowPlacementBeyondTheBoundaries() {
-
+		final Integer size = 3;
+		Board board = new Board(size);
+		Token token = new Token("X");
+		Position position = new Position(0, 4);
+		try{
+			board.place(position, token);
+		}catch(OutOFBoundaryException e){
+			return;
+		}
+		fail("should throw OutOFBoundaryException");
 	}
 
 	@Test
 	public void shouldNotAllowAPlayerToPlayConsecutiveTurns() {
+		
 	}
 
 	@Test
