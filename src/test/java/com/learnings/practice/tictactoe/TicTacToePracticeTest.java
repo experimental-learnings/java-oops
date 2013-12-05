@@ -114,7 +114,50 @@ public class TicTacToePracticeTest {
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveVerticalPositionsAreFilledBySamePlayer() {
-			}
+		final Integer size = 3;
+		Board board = new Board(3);
+		Position zeroZero = new Position(0, 0);
+		Position zeroOne = new Position(0, 1);
+		Position oneTwo = new Position(1, 2);
+		Position oneOne = new Position(1, 1);
+		Position zeroTwo = new Position(0, 2);
+		Position twoOne = new Position(2, 1);
+		Token firstToken = new Token("X");
+		Token secondToken = new Token("O");
+
+		BoardStateChangeListener boardListener = mock(BoardStateChangeListener.class);
+		board.setBoardStateChangeListener(boardListener);
+		
+		TicTacToeGame game = new TicTacToeGame(board);
+
+		board.place(zeroZero, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(zeroOne, secondToken);
+		game.getGameStatus(secondToken);
+		
+		board.place(oneTwo, firstToken);
+		game.getGameStatus(firstToken);
+		
+		board.place(oneOne, secondToken);
+		game.getGameStatus(secondToken);
+		
+		board.place(zeroTwo, firstToken);
+		game.getGameStatus(firstToken);
+		
+		GameStateChangeListener gameListener = mock(GameStateChangeListener.class);
+		game.setGameStateChangeListener(gameListener);
+		
+		board.place(twoOne, secondToken);
+		game.getGameStatus(secondToken);
+		
+		ArgumentCaptor<GameStateChangeEvent> argument = ArgumentCaptor.forClass(GameStateChangeEvent.class);
+		verify(gameListener).onStateChange(argument.capture());
+    	assertEquals(argument.getValue().getState(),GameState.PLAYER2);
+    	
+
+
+	}
 
 	@Test
 	public void shouldDeclareWinnerWhenThreeConsecutiveRightDiagonalPositionsAreFilledBySamePlayer() {
