@@ -1,6 +1,6 @@
 package com.learnings.practice.tictactoe;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 import com.learnings.tictactoe.Position;
 import com.learnings.tictactoe.Token;
@@ -24,6 +24,13 @@ public class TicTacToePracticeTest {
 		Token token = new Token("X");
 		Position position = new Position(0, 1);
 		board.place(position, token);
+		
+		try{
+			board.place(position, token);
+		}catch(TokenAlreadyException e){
+			return;
+		}
+		fail("should throw TokenAlreadyException");
 
 	}
 
