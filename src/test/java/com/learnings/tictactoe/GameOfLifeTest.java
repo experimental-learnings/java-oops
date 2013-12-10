@@ -1,8 +1,8 @@
 package com.learnings.tictactoe;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 import org.mockito.ArgumentCaptor;
 import org.testng.annotations.Test;
@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import com.learnings.gameoflife.Board;
 import com.learnings.gameoflife.BoardStateChangeListener;
 import com.learnings.gameoflife.BoardStateChangeListener.BoardStateChangeEvent;
+import com.learnings.gameoflife.OutOfBoardSizeException;
 import com.learnings.gameoflife.Position;
 import com.learnings.gameoflife.Token;
 
@@ -17,7 +18,7 @@ public class GameOfLifeTest {
 	// Assume that its a square board of int size
 	
 	@Test
-	public void displayBoardAndFirstGeneration() {
+	public void shouldBeAbleToGenerateFirstGenerationAndDisplay() {
 		Token deadCell = new Token("D");
 		Token aliveCell = new Token("L");
 		final Integer size = 3;
@@ -58,5 +59,35 @@ public class GameOfLifeTest {
     	assertTrue(argument.getValue().getState().hasTokenAt(positions));
     	
 	}
+	
+	@Test
+	public void allLiveAndDeadCellTokensShouldBeWithinTheBoundaries() {
+		Token deadCell = new Token("D");
+		Token aliveCell = new Token("L");
+		final Integer size = 3;
+		final Integer noOfGenerations = 3;
+		Position zeroZero = new Position(0, 0);
+		Position zeroOne = new Position(0, 1);
+		Position zeroTwo = new Position(0, 2);
+		Position oneZero = new Position(1, 0);
+		Position oneOne = new Position(1, 1);
+		Position oneTwo = new Position(2, 2);
+		Position twoZero = new Position(2, 0);
+		Position twoOne = new Position(1, 1);
+		Position twoThree = new Position(2, 3);  //out of board size 
+		final Position[] positions = {zeroZero,zeroOne,zeroTwo,oneZero,oneOne,oneTwo,twoZero,twoOne,twoThree};
+		Token []tokens = {deadCell,aliveCell,deadCell,deadCell,aliveCell,deadCell,deadCell,aliveCell,deadCell};
+		Board board = new Board(size, noOfGenerations);
+
+		BoardStateChangeListener listener = mock(BoardStateChangeListener.class);
+		board.setBoardStateChangeListener(listener);
+		try{
+			board.generateFirstGenerationPattern(positions, tokens);
+		}catch(OutOfBoardSizeException e){
+			return;
+		}
+		fail("should throw OutOfBoardSizeException");
+
+	} 
 
 }

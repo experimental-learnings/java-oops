@@ -3,7 +3,6 @@ package com.learnings.gameoflife;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.learnings.gameoflife.BoardStateChangeListener.BoardStateChangeEvent;
 
 public class Board {
@@ -18,9 +17,31 @@ public class Board {
 		this.noOfGenerations = gens;
 		tokenMap = new HashMap<Position, Token>(size * size, 1.0F);
 	}
+
+	public void generateFirstGenerationPattern(Position[] positions, Token[] tokens) {
+		for (int i = 0; i < positions.length; i++) {
+			validate(tokens[i], positions[i]);
+			tokenMap.put(positions[i], tokens[i]);
+		}
+		if (boardStateChangeListener != null)
+			boardStateChangeListener.onStateChange(new BoardStateChangeEvent(
+					new BoardState()));
+	}
 	
-	public void nextGeneration(){
-		int count = 1;
+	private void validate(Token token, final Position position) {
+		if (isPlacementOutsideBoundaries(position)) throw new OutOfBoardSizeException();
+	}
+	private boolean isPlacementOutsideBoundaries(final Position position) {
+		return position.getRow() >= size || position.getColumn() >= size;
+	}
+
+	
+	public void isLifeExist(Map<Position,Token> map){
+		
+	}
+
+	public void setBoardStateChangeListener(BoardStateChangeListener listener) {
+		this.boardStateChangeListener = listener;
 	}
 
 	public class BoardState {
@@ -45,19 +66,6 @@ public class Board {
 			return true;
 		}
 
-	}
-
-	public void generateFirstGenerationPattern(Position[] positions, Token[] tokens) {
-		for (int i = 0; i < positions.length; i++) {
-			tokenMap.put(positions[i], tokens[i]);
-		}
-		if (boardStateChangeListener != null)
-			boardStateChangeListener.onStateChange(new BoardStateChangeEvent(
-					new BoardState()));
-	}
-
-	public void setBoardStateChangeListener(BoardStateChangeListener listener) {
-		this.boardStateChangeListener = listener;
 	}
 
 }
