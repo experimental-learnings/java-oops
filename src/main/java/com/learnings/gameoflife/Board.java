@@ -35,9 +35,31 @@ public class Board {
 		return position.getRow() >= size || position.getColumn() >= size;
 	}
 
-	
-	public void isLifeExist(Map<Position,Token> map){
+	public void nextGeneration(){
 		
+	}
+	
+	public boolean isLifeExist(Map<Position,Token> map){
+		Map newMap = new HashMap(map.size());
+		for(int row=0; row<size; row++){
+			for(int col=0; col<size; col++){
+					Token above = null;
+					Token same = null;
+					Token below = null;
+					if(col == 0){
+						if(row==0){
+							above = null;
+						}else{
+							above.setSubString();//map.get(new Position(row, col));
+							above
+						}
+						above = (row == 0) ? null : map.get(new Position(row-1, col))
+					}
+					
+			}
+		}
+		
+		return false;
 	}
 
 	public void setBoardStateChangeListener(BoardStateChangeListener listener) {
