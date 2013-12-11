@@ -8,10 +8,10 @@ public class PaintingBoard {
 	public static void paintBoard(BoardState boardState) {
 		for (int row = 0; row < boardState.getSize(); row++) {
 			for (int col = 0; col < boardState.getSize(); ++col) {
-				if(boardState.getToken(new Position(row, col)) !=null ){
-					System.out.print(boardState.getToken(new Position(row, col)).getCurrentToken());
+				if(boardState.getLiveCell(new Position(row, col)) !=null ){
+					System.out.print(boardState.getLiveCell(new Position(row, col)));
 				}else{
-					System.out.print(boardState.getToken(new Position(row, col)));
+					System.out.print(" ");
 				}
 				if (col < boardState.getSize() - 1)
 					System.out.print("|");
