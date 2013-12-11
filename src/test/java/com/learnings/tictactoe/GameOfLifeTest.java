@@ -3,14 +3,10 @@ package com.learnings.tictactoe;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 import static org.testng.Assert.*;
-import java.util.HashMap;
-import java.util.Map;
-import org.mockito.ArgumentCaptor;
+
+import java.io.Console;
 import org.testng.annotations.Test;
 import com.learnings.gameoflife.Board;
-import com.learnings.gameoflife.BoardStateChangeListener;
-import com.learnings.gameoflife.BoardStateChangeListener.BoardStateChangeEvent;
-import com.learnings.gameoflife.OutOfBoardSizeException;
 import com.learnings.gameoflife.Position;
 
 public class GameOfLifeTest {
@@ -23,16 +19,9 @@ public class GameOfLifeTest {
 		final Integer size = 3;
 		Position zeroOne = new Position(0, 1);
 		Board board = new Board(size);
-		
-		BoardStateChangeListener listener = mock(BoardStateChangeListener.class);
-		board.setBoardStateChangeListener(listener);
-		
+		Console cons = System.console(); 
 		board.place(zeroOne, liveCell);
-		
-		ArgumentCaptor<BoardStateChangeEvent> argument = ArgumentCaptor.forClass(BoardStateChangeEvent.class);
-		verify(listener).onStateChange(argument.capture());
-    	assertTrue(argument.getValue().getState().hasLiveCellAt(zeroOne));
-    
+		assertEquals(board.getBoardState().hasLiveCellAt(zeroOne), true);
 	}
 	@Test
 	public void shouldInitializeBoardWithFirstGeneration() {

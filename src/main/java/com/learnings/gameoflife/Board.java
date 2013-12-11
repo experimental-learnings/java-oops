@@ -8,7 +8,6 @@ import com.learnings.gameoflife.BoardStateChangeListener.BoardStateChangeEvent;
 public class Board {
 	private int size;
 	private Map<Position, String> liveCellMapPattern;
-	private BoardStateChangeListener boardStateChangeListener;
 
 	public Board(int size) {
 		this.size = size;
@@ -17,23 +16,19 @@ public class Board {
 
 	public void place(Position position,String liveCell) {
 		liveCellMapPattern.put(position, liveCell);
-		if (boardStateChangeListener != null)
-			boardStateChangeListener.onStateChange(new BoardStateChangeEvent(
-					new BoardState()));
 	}
-	
 
-	public void setBoardStateChangeListener(BoardStateChangeListener listener) {
-		this.boardStateChangeListener = listener;
+	public BoardState getBoardState(){
+		return new BoardState();
 	}
 
 	public class BoardState {
 
-		public String getLiveCell(Position position) {
+		String getLiveCell(Position position) {
 			return liveCellMapPattern.get(position);
 		}
 
-		public Map<Position, String> getLiveCellMap() {
+		Map<Position, String> getLiveCellMap() {
 			return Collections.unmodifiableMap(liveCellMapPattern);
 		}
 
@@ -44,8 +39,5 @@ public class Board {
 		public boolean hasLiveCellAt(Position position) {
 			return liveCellMapPattern.containsKey(position);
 		}
-
 	}
-
-	
 }

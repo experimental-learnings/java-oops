@@ -1,26 +1,22 @@
 package com.learnings.gameoflife;
+import java.io.Console;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.testng.Assert.assertTrue;
-
-import org.mockito.ArgumentCaptor;
-
-import com.learnings.gameoflife.BoardStateChangeListener.BoardStateChangeEvent;
 
 
 public class Main {
 
 	public static void main(String str[]){
+		ShouldBeAbleToPlaceALiveCellOnTheBoard();
+	}
+	public static void ShouldBeAbleToPlaceALiveCellOnTheBoard() {
 		String liveCell = "L";
 		final Integer size = 3;
 		Position zeroOne = new Position(0, 1);
 		Board board = new Board(size);
-				
-		board.setBoardStateChangeListener(new BoardListener());
-		
+		Console cons = System.console();
 		board.place(zeroOne, liveCell);
-		
-		
+		PaintingBoard.paintBoard(board.getBoardState());
+
 	}
+
 }
