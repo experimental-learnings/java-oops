@@ -26,13 +26,13 @@ public class GameOfLifeTest {
 	}
 	
 	@Test
-	public void ShouldBeAbleToPlaceAllLiveCellWithinTheBoundaries() {
+	public void ShouldBeAbleToPlaceALiveCellWithinTheBoundaries() {
 		String liveCell = "L";
 		final Integer size = 3;
-		Position zeroOne = new Position(0, 5);
+		Position zeroFive = new Position(0, 5);
 		Board board = new Board(size);
 		try{
-			board.place(zeroOne, liveCell);
+			board.place(zeroFive, liveCell);
 		}catch(OutOfBoardSizeException e){
 			return;
 		}
@@ -41,12 +41,37 @@ public class GameOfLifeTest {
 	} 
 	@Test
 	public void shouldInitializeBoardWithFirstGeneration() {
+		String liveCell = "L";
+		final Integer size = 3;
+		Position zeroOne = new Position(0, 1);
+		Position oneOne = new Position(1, 1);
+		Position twoOne = new Position(2, 1);
+		Board board = new Board(size);
 		
+		board.place(zeroOne, liveCell);
+		board.place(oneOne, liveCell);
+		board.place(twoOne, liveCell);
+
+		assertEquals(board.getBoardState().hasLiveCellAt(zeroOne), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(oneOne), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(twoOne), true);
 	}
 	
 	//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 	@Test
 	public void shouldKillLiveCellOnUnderPopulation() {
+		String liveCell = "L";
+		final Integer size = 3;
+		Position zeroOne = new Position(0, 1);
+		Position oneOne = new Position(1, 1);
+		Position twoOne = new Position(2, 1);
+		Board board = new Board(size);
+		
+		board.place(zeroOne, liveCell);
+		board.place(oneOne, liveCell);
+		board.place(twoOne, liveCell);
+		
+		
 		
 	}
 	
