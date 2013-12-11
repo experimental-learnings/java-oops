@@ -73,6 +73,7 @@ public class GameOfLifeTest {
 		
 		
 		
+		
 	}
 	
 	//Any live cell with two or three live neighbours lives on to the next generation.
