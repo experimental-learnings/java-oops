@@ -15,9 +15,16 @@ public class Board {
 	}
 
 	public void place(Position position,String liveCell) {
+		validate(position, liveCell);
 		liveCellMapPattern.put(position, liveCell);
 	}
 
+	private void validate(Position position,String token) {
+		if (isPlacementOutsideBoundaries(position)) throw new OutOfBoardSizeException();
+	}
+	private boolean isPlacementOutsideBoundaries(final Position position) {
+		return position.getRow() >= size || position.getColumn() >= size;
+	}
 	public BoardState getBoardState(){
 		return new BoardState();
 	}

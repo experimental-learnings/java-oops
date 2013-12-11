@@ -7,6 +7,7 @@ import static org.testng.Assert.*;
 import java.io.Console;
 import org.testng.annotations.Test;
 import com.learnings.gameoflife.Board;
+import com.learnings.gameoflife.OutOfBoardSizeException;
 import com.learnings.gameoflife.Position;
 
 public class GameOfLifeTest {
@@ -23,15 +24,25 @@ public class GameOfLifeTest {
 		board.place(zeroOne, liveCell);
 		assertEquals(board.getBoardState().hasLiveCellAt(zeroOne), true);
 	}
+	
+	@Test
+	public void ShouldBeAbleToPlaceAllLiveCellWithinTheBoundaries() {
+		String liveCell = "L";
+		final Integer size = 3;
+		Position zeroOne = new Position(0, 5);
+		Board board = new Board(size);
+		try{
+			board.place(zeroOne, liveCell);
+		}catch(OutOfBoardSizeException e){
+			return;
+		}
+		fail(" should throw OutOfBoardSizeException");
+	
+	} 
 	@Test
 	public void shouldInitializeBoardWithFirstGeneration() {
 		
 	}
-	
-	@Test
-	public void ShouldBeAbleToPlaceAllLiveCellWithinTheBoundaries() {
-		
-	} 
 	
 	//Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 	@Test
