@@ -6,6 +6,7 @@ public class PaintingBoard {
 
 	
 	public static void paintBoard(BoardState boardState) {
+		System.out.println("*****************************");
 		for (int row = 0; row < boardState.getSize(); row++) {
 			for (int col = 0; col < boardState.getSize(); ++col) {
 				if(boardState.getLiveCell(new Position(row, col)) !=null ){

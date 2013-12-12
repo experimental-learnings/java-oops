@@ -18,14 +18,11 @@ public class Board {
 		validate(position, liveCell);
 		currentPosition = position;
 		liveCellMapPattern.put(position, liveCell);
-		computeNextGen();
 	}
 
-	public String subString(int row,int initialCol,int lastCol){
-		return liveCellMapPattern.get(new Position(row, initialCol))+""+liveCellMapPattern.get(new Position(row, lastCol));
-	}
-
-	public void computeNextGen() {
+	
+	public Map<Position, String> computeNextGen() {
+		Map<Position, String> tempMap = new HashMap<Position, String>();
 		for(int row=0; row<size ;row++){
 			for(int col=0;col<size;col++){
 				String above = "";
@@ -40,34 +37,37 @@ public class Board {
 					same = liveCellMapPattern.get(new Position(row, col-1));
 					below = (row == size - 1) ? null : subString(row+1, col-1, col);
 				}else{
-					above = (row == 0) ? null : subString(row-1, col-1, col)+""+liveCellMapPattern.get(new Position(row-1, col+1));
+					above = (row == 0) ? null : subString(row-1, col-1, col)+" "+liveCellMapPattern.get(new Position(row-1, col+1));
 					same = subString(row, col-1, col+1);
-					below = (row == size - 1) ? null : subString(row+1, col-1, col)+""+liveCellMapPattern.get(new Position(row+1, col+1));
-				
+					below = (row == size - 1) ? null : subString(row+1, col-1, col)+" "+liveCellMapPattern.get(new Position(row+1, col+1));
 				}
-				System.out.println("Above :"+above);
-				System.out.println("Same :"+same);
-				System.out.println("Below :"+below);
-				
+				int liveNeighbors = getLiveNeighbors(above, same, below);
+				if (liveNeighbors < 2 ) {
+					tempMap.put(new Position(row,col), null);
+				}else {
+					tempMap.put(new Position(row, col), liveCellMapPattern.get(new Position(row, col)));
+				}
 			}
 		}
-		
+		return tempMap;
 	}
-	public static int getNeighbors(String above, String same, String below) {
+	public static int getLiveNeighbors(String above, String same, String below) {
 		int count = 0;
 		if (above != null) {
-			for (char x : above.toCharArray()) {
-				if (x == 'L')
+			for(int i=0; i<above.length();i++){
+				if(above.charAt(i) == 'L')
 					count++;
 			}
 		}
-		for (char x : same.toCharArray()) {
-			if (x == 'L')
-				count++;
+		if(same !=null){
+			for(int i=0; i<same.length();i++){
+				if(same.charAt(i) == 'L')
+					count++;
+			}
 		}
 		if (below != null) {
-			for (char x : below.toCharArray()) {
-				if (x == 'L')
+			for(int i=0; i<below.length();i++){
+				if(below.charAt(i) == 'L')
 					count++;
 			}
 		}
@@ -75,7 +75,7 @@ public class Board {
 	}
 	
 	public void updateGen(){
-		
+		liveCellMapPattern=computeNextGen();
 	}
 	
 	private void validate(Position position,String token) {
@@ -88,16 +88,15 @@ public class Board {
 		return new BoardState();
 	}
 	
-	
+	public String subString(int row,int initialCol,int lastCol){
+		return liveCellMapPattern.get(new Position(row, initialCol))+" "+liveCellMapPattern.get(new Position(row, lastCol));
+	}
 
+	
 	public class BoardState {
 
 		String getLiveCell(Position position) {
 			return liveCellMapPattern.get(position);
-		}
-
-		Map<Position, String> getLiveCellMap() {
-			return Collections.unmodifiableMap(liveCellMapPattern);
 		}
 
 		Integer getSize() {
@@ -105,7 +104,7 @@ public class Board {
 		}
 
 		public boolean hasLiveCellAt(Position position) {
-			return liveCellMapPattern.containsKey(position);
+			return liveCellMapPattern.get(position) != null ;
 		}
 	}
 }

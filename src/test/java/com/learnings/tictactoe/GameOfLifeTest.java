@@ -71,8 +71,11 @@ public class GameOfLifeTest {
 		board.place(oneOne, liveCell);
 		board.place(twoOne, liveCell);
 		
+		board.updateGen();
 		
-		
+		assertEquals(board.getBoardState().hasLiveCellAt(zeroOne), false);
+		assertEquals(board.getBoardState().hasLiveCellAt(oneOne), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(twoOne), false);
 		
 	}
 	
