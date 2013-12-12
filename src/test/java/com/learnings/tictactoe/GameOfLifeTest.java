@@ -109,7 +109,26 @@ public class GameOfLifeTest {
 	//Any live cell with two or three live neighbours lives on to the next generation.
 	@Test
 	public void shouldBeAbleToContinueLiveCellToNextGeneration() {
+		String liveCell = "L";
+		final Integer size = 3;
+		Position zeroOne = new Position(0, 1);
+		Position oneOne = new Position(1, 1);
+		Position twoOne = new Position(2, 1);
+		Position oneTwo = new Position(1, 2);
+		Board board = new Board(size);
 		
+		board.place(zeroOne, liveCell);
+		board.place(oneOne, liveCell);
+		board.place(twoOne, liveCell);
+		board.place(oneTwo, liveCell);
+
+		board.updateGen();
+		
+		assertEquals(board.getBoardState().hasLiveCellAt(zeroOne), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(oneOne), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(oneTwo), true);
+		assertEquals(board.getBoardState().hasLiveCellAt(twoOne), true);
+
 	}
 	
 		
