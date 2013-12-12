@@ -18,12 +18,16 @@ public class Main {
 		Position zeroOne = new Position(0, 1);
 		Position oneOne = new Position(1, 1);
 		Position twoOne = new Position(2, 1);
+		Position oneTwo = new Position(1, 2);
+		Position zeroTwo = new Position(0, 2);
 		Board board = new Board(size);
-		Generation gens = new Generation(noOfGenerations);
+		
 		board.place(zeroOne, liveCell);
 		board.place(oneOne, liveCell);
 		board.place(twoOne, liveCell);
-		
+		board.place(zeroTwo, liveCell);
+		board.place(oneTwo, liveCell);
+
 		PaintingBoard.paintBoard(board.getBoardState());
 		board.updateGen();
 		PaintingBoard.paintBoard(board.getBoardState());

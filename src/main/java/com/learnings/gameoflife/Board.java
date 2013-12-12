@@ -42,7 +42,7 @@ public class Board {
 					below = (row == size - 1) ? null : subString(row+1, col-1, col)+" "+liveCellMapPattern.get(new Position(row+1, col+1));
 				}
 				int liveNeighbors = getLiveNeighbors(above, same, below);
-				if (liveNeighbors < 2 ) {
+				if (liveNeighbors < 2 || liveNeighbors > 3) {
 					tempMap.put(new Position(row,col), null);
 				}else {
 					tempMap.put(new Position(row, col), liveCellMapPattern.get(new Position(row, col)));
