@@ -44,7 +44,10 @@ public class Board {
 				int liveNeighbors = getLiveNeighbors(above, same, below);
 				if (liveNeighbors < 2 || liveNeighbors > 3) {
 					tempMap.put(new Position(row,col), null);
-				}else {
+				}else if(liveNeighbors == 3 ){
+					tempMap.put(new Position(row,col), "L");
+				}
+				else {
 					tempMap.put(new Position(row, col), liveCellMapPattern.get(new Position(row, col)));
 				}
 			}
